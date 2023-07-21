@@ -1,12 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Piece } from "@prisma/client";
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateArtistDto {
-    @ApiProperty()
-    @IsNotEmpty()
-    id: number;
-
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
@@ -19,7 +14,4 @@ export class CreateArtistDto {
     @IsNotEmpty()
     @IsEmail()
     email: string;
-
-    @ApiProperty()
-    piece: Piece[];
 }

@@ -15,8 +15,8 @@ model Artist {
   name        String
   description String?
   email       String    @unique
-  galleries   Gallery[]
-  pieces      Piece[]
+  galleries   Gallery[] 
+  pieces      Piece[] 
 }
 
 model Gallery {
