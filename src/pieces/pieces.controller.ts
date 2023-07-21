@@ -36,7 +36,7 @@ export class PiecesController {
 
   @Delete(':id')
   @ApiOkResponse({type: PieceEntity})
-  remove(@Param('id', ParseIntPipe) id: Number) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.piecesService.remove(id);
   }
 }
