@@ -1,34 +1,42 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { PiecesService } from './pieces.service';
 import { CreatePieceDto } from './dto/create-piece.dto';
 import { UpdatePieceDto } from './dto/update-piece.dto';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { PieceEntity } from './entities/piece.entity';
 
 @Controller('pieces')
+@ApiTags('pieces')
 export class PiecesController {
   constructor(private readonly piecesService: PiecesService) {}
 
   @Post()
+  @ApiCreatedResponse({type: PieceEntity})
   create(@Body() createPieceDto: CreatePieceDto) {
     return this.piecesService.create(createPieceDto);
   }
 
   @Get()
+  @ApiOkResponse({type:PieceEntity, isArray: true})
   findAll() {
     return this.piecesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.piecesService.findOne(+id);
+  @ApiOkResponse({type: PieceEntity})
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.piecesService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePieceDto: UpdatePieceDto) {
-    return this.piecesService.update(+id, updatePieceDto);
+  @ApiOkResponse({type: PieceEntity})
+  update(@Param('id', ParseIntPipe) id: number, @Body() updatePieceDto: UpdatePieceDto) {
+    return this.piecesService.update(id, updatePieceDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.piecesService.remove(+id);
+  @ApiOkResponse({type: PieceEntity})
+  remove(@Param('id', ParseIntPipe) id: Number) {
+    return this.piecesService.remove(id);
   }
 }

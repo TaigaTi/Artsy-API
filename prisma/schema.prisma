@@ -14,7 +14,7 @@ model Artist {
   id          Int       @id @default(autoincrement())
   name        String
   description String?
-  email       String    @unique 
+  email       String    @unique
   galleries   Gallery[]
   pieces      Piece[]
 }
@@ -28,9 +28,10 @@ model Gallery {
 }
 
 model Piece {
-  id       Int       @id @default(autoincrement())
-  title    String    @unique
-  artist   Artist    @relation(references: [id], fields: [artistId])
-  artistId Int
-  gallery  Gallery[]
+  id        Int     @id @default(autoincrement())
+  title     String  @unique
+  artist    Artist  @relation(references: [id], fields: [artistId])
+  artistId  Int
+  gallery   Gallery @relation(references: [id], fields: [galleryId])
+  galleryId Int
 }

@@ -8,22 +8,22 @@ export class GalleriesService {
   constructor(private prisma: PrismaService) {}
 
   create(createGalleryDto: CreateGalleryDto) {
-    return this.prisma.gallery.createGalleryDto();
+    return this.prisma.gallery.create({ data:createGalleryDto });
   }
 
   findAll() {
-    return `This action returns all galleries`;
+    return this.prisma.gallery.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} gallery`;
+    return this.prisma.gallery.findUnique({where: {id}});
   }
 
   update(id: number, updateGalleryDto: UpdateGalleryDto) {
-    return `This action updates a #${id} gallery`;
+    return this.prisma.gallery.update({where: {id}, data: updateGalleryDto});
   }
 
   remove(id: number) {
-    return `This action removes a #${id} gallery`;
+    return this.prisma.gallery.delete({where:{id}});
   }
 }

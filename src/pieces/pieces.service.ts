@@ -6,25 +6,25 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PiecesService {
-  constructor(private: prisma PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
   create(createPieceDto: CreatePieceDto) {
-    return 'This action adds a new piece';
+    return this.prisma.piece.create({data: createPieceDto});
   }
 
   findAll() {
-    return `This action returns all pieces`;
+    return this.prisma.piece.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} piece`;
+    return this.prisma.piece.findUnique({where: {id}});
   }
 
   update(id: number, updatePieceDto: UpdatePieceDto) {
-    return `This action updates a #${id} piece`;
+    return this.prisma.piece.update({where: {id}, data: updatePieceDto});
   }
 
   remove(id: number) {
-    return `This action removes a #${id} piece`;
+    return this.prisma.piece.delete({where:{id}});
   }
 }

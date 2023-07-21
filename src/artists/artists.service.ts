@@ -8,22 +8,22 @@ export class ArtistsService {
   constructor(private prisma: PrismaService) {}
 
   create(createArtistDto: CreateArtistDto) {
-    return `This action adds a new article`;
+    return this.prisma.artist.create({ data: createArtistDto });
   }
 
   findAll() {
-    return this.prisma.artist.findAll();
+    return this.prisma.artist.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} artist`;
+    return this.prisma.artist.findUnique({where: {id}})
   }
 
   update(id: number, updateArtistDto: UpdateArtistDto) {
-    return `This action updates a #${id} artist`;
+    return this.prisma.artist.update({where: {id}, data: updateArtistDto});
   }
 
   remove(id: number) {
-    return `This action removes a #${id} artist`;
+    return this.prisma.artist.delete({where:{id}});
   }
 }
